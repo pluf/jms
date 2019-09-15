@@ -18,81 +18,51 @@
  */
 namespace Pluf\Jms;
 
+class Pipeline extends \Pluf_Model
+{
 
-class Pipeline extends \Pluf_Model {
-
-// @Entity
-// @Table(name = "jms_pipelines")
-//     /**
-//      *
-//      */
-//     @JsonIgnore
-//     @XmlTransient
-//     private static final long serialVersionUID = WebpichCoreVersion.SERIAL_VERSION_UID;
-
-//     public static final String STATUS_NEW = "new";
-//     public static final String STATUS_WAIT = "ready";
-//     public static final String STATUS_IN_PROGRESS = "in-progress";
-//     public static final String STATUS_STOPPED = "stopped";
-//     public static final String STATUS_ERROR = "error";
-//     public static final String STATUS_COMPLETE = "done";
-
-//     @MaxLength(256)
-//     @Column(name = "title")
-//     @JsonProperty(value = "title", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "title", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Pipeline title")
-//     @JsonPropertyTitle("title")
-//     @GraphQLField
-//     @GraphQLName("title")
-//     private String title;
-
-//     @MaxLength(2048)
-//     @Column(name = "description")
-//     @JsonProperty(value = "description", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "description", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job description")
-//     @JsonPropertyTitle("description")
-//     @GraphQLField
-//     @GraphQLName("description")
-//     private String description;
-
-//     @MaxLength(64)
-//     @Column(name = "status", //
-// 	    nullable = false)
-//     @JsonProperty(value = "status", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "init", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Pipeline state")
-//     @JsonPropertyTitle("Status")
-//     @GraphQLField
-//     @GraphQLName("status")
-//     private String status = "init";
-
-//     @JsonIgnore
-//     @ManyToMany(fetch = FetchType.LAZY, //
-// 	    cascade = { CascadeType.ALL })
-//     @JoinTable(name = "jms_pipeline_label_assoc", //
-// 	    joinColumns = @JoinColumn(name = "pipeline_id"), //
-// 	    inverseJoinColumns = @JoinColumn(name = "label_id"))
-//     @GraphQLField
-//     @GraphQLName("labels")
-//     private Set<Label> labels = new HashSet<>();
-
-//     @JsonIgnore
-//     @OneToMany(fetch = FetchType.LAZY, //
-// 	    cascade = CascadeType.ALL, //
-// 	    mappedBy = "pipeline")
-//     @GraphQLField
-//     @GraphQLName("jobs")
-//     private Set<Job> jobs = new HashSet<>();
-
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_pipelines';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Fields
+            'title' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 256,
+                'unique' => false,
+                'editable' => true
+            ),
+            'description' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 2048,
+                'unique' => false,
+                'editable' => true
+            ),
+            'status' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 64,
+                'default' => PipelineState::STATUS_NEW,
+                'unique' => false,
+                'editable' => true
+            )
+            /*
+         * Relations
+         */
+        );
+        $this->_a['idx'] = array();
+    }
 }

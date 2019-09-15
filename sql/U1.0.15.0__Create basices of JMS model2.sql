@@ -2,9 +2,9 @@
  * JOB MANAGEMENT SYSTEM
  * 
  **************************************************************/
-DROP TABLE `jms_jobs_jms_labels_assoc`;
 DROP TABLE `jms_labels_jms_pipelines_assoc`;
-DROP TABLE `jms_jobs_jms_prerequisites_assoc`;
+DROP TABLE `jms_jobs_jms_labels_assoc`;
+DROP TABLE `jms_jobs_jms_jobs_assoc`;
 
 DROP TABLE `jms_artifacts`;
 DROP TABLE `jms_attachments`;

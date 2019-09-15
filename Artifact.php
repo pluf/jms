@@ -18,49 +18,132 @@
  */
 namespace Pluf\Jms;
 
+class Artifact extends \Pluf_Model
+{
 
-class Artifact extends \Pluf_Model {
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_artifacts';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Model
+            'path' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'default' => '/',
+                'size' => 1024,
+                'editable' => true,
+                'help' => "Path of artifacts in working directory"
+            ),
+            // File
+            'mime_type' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 64,
+                'default' => 'application/octet-stream',
+                'editable' => true
+            ),
+            'file_name' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 254,
+                'default' => 'unknown',
+                'verbose' => 'file name',
+                'help_text' => 'Content file name',
+                'editable' => true
+            ),
+            'file_path' => array(
+                'type' => 'Pluf_DB_Field_File',
+                'is_null' => false,
+                'size' => 1024,
+                'verbose' => 'File path',
+                'help_text' => 'Content file path',
+                'editable' => false,
+                'readable' => false
+            ),
+            'file_size' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'is_null' => false,
+                'default' => 'no title',
+                'verbose' => 'file size',
+                'help_text' => 'content file size',
+                'editable' => false
+            ),
+            'modif_dtime' => array(
+                'type' => 'Pluf_DB_Field_Datetime',
+                'blank' => true,
+                'verbose' => 'creation',
+                'help_text' => 'content modification time',
+                'editable' => false
+            ),
+            // relations
+            'job_id' => array(
+                'type' => 'Pluf_DB_Field_Foreignkey',
+                'model' => 'Pluf\Jms\Job',
+                'is_null' => false,
+                'name' => 'job',
+                'relate_name' => 'artifacts',
+                'graphql_name' => 'job',
+                'editable' => true
+            )
+        );
+        $this->_a['idx'] = array();
+    }
 
-// @Entity BInary
-// @Table(name = "jms_artifacts")
-//     /**
-//      *
-//      */
-//     @JsonIgnore
-//     @XmlTransient
-//     private static final long serialVersionUID = WebpichCoreVersion.SERIAL_VERSION_UID;
+    /**
+     * Loads basic informations of the artifact
+     *
+     * @param boolean $create
+     *            the state of the workFs
+     */
+    function preSave($create = false)
+    {
+        $this->modif_dtime = gmdate('Y-m-d H:i:s');
+        $path = $this->getAbsloutPath();
+        // file size
+        if (file_exists($path)) {
+            $this->file_size = filesize($path);
+        } else {
+            $this->file_size = 0;
+        }
+        // mime type (based on file name)
+        $mime_type = $this->mime_type;
+        if (! isset($mime_type) || $mime_type === 'application/octet-stream') {
+            $fileInfo = Pluf_FileUtil::getMimeType($this->file_name);
+            $this->mime_type = $fileInfo[0];
+        }
+    }
 
-//     @Column(name = "path", //
-// 	    nullable = false)
-//     @JsonProperty(value = "path", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = ".", //
-// 	    index = 0)
-//     @JsonPropertyDescription("Path of artifacts in working directory")
-//     @JsonPropertyTitle("Path")
-//     @GraphQLField
-//     @GraphQLName("path")
-//     private String path;
+    /**
+     * Delete file content
+     */
+    function preDelete()
+    {
+        // remove related file
+        $filename = $this->getAbsloutPath();
+        if (is_file($filename)) {
+            unlink($filename);
+        }
+    }
 
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "job_id", //
-// 	    updatable = false, //
-// 	    insertable = false, //
-// 	    nullable = false)
-//     @JsonIgnore
-//     @GraphQLField
-//     @GraphQLName("job")
-//     private Job job;
-
-//     @Column(name = "job_id", //
-// 	    nullable = false)
-//     @JsonProperty(value = "job_id", //
-// 	    defaultValue = "", //
-// 	    access = Access.READ_WRITE, //
-// 	    required = true)
-//     @JsonPropertyDescription("job id of the artifact.")
-//     @GraphQLField
-//     @GraphQLName("job_id")
-//     private Long jobId;
-
+    /**
+     * مسیر کامل محتوی را تعیین می‌کند.
+     * این مسیر حاوی اسم فایل هم هست.
+     *
+     * @return string
+     */
+    public function getAbsloutPath()
+    {
+        return $this->file_path;
+    }
 }

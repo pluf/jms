@@ -18,56 +18,47 @@
  */
 namespace Pluf\Jms;
 
+class Worker extends \Pluf_Model
+{
 
-class Worker extends \Pluf_Model {
-
-// @Entity
-// @Table(name = "jms_workers")
-//     /**
-//      *
-//      */
-//     @JsonIgnore
-//     @XmlTransient
-//     private static final long serialVersionUID = WebpichCoreVersion.SERIAL_VERSION_UID;
-
-//     @MaxLength(256)
-//     @Column(name = "title")
-//     @JsonProperty(value = "title", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "title", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Pipeline title")
-//     @JsonPropertyTitle("title")
-//     @GraphQLField
-//     @GraphQLName("title")
-//     private String title;
-
-//     @MaxLength(2048)
-//     @Column(name = "description")
-//     @JsonProperty(value = "name", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "description", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job description")
-//     @JsonPropertyTitle("description")
-//     @GraphQLField
-//     @GraphQLName("description")
-//     private String description;
-
-//     @MaxLength(2048)
-//     @Column(name = "token")
-//     @JsonProperty(value = "token", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "token", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Worker token")
-//     @JsonPropertyTitle("token")
-//     @GraphQLField
-//     @GraphQLName("token")
-//     private String token;
-
-
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_workers';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Fields
+            'title' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 256,
+                'unique' => false,
+                'editable' => true
+            ),
+            'description' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 2048,
+                'unique' => false,
+                'editable' => true
+            ),
+            'token' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 2048,
+                'unique' => false,
+                'editable' => true
+            )
+        );
+        $this->_a['idx'] = array();
+    }
 }

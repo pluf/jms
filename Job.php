@@ -18,190 +18,115 @@
  */
 namespace Pluf\Jms;
 
-class Job extends ModelBinary {
+class Job extends ModelBinary
+{
 
-// // @Entity
-// // @Table(name = "jms_jobs")
-
-//     @MaxLength(64)
-//     @Column(name = "name", //
-// 	    nullable = false)
-//     @JsonProperty(value = "name", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "job", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job name")
-//     @JsonPropertyTitle("Name")
-//     @GraphQLField
-//     @GraphQLName("name")
-//     private String name;
-
-//     @MaxLength(2048)
-//     @Column(name = "description")
-//     @JsonProperty(value = "description", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "description", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job description")
-//     @JsonPropertyTitle("description")
-//     @GraphQLField
-//     @GraphQLName("description")
-//     private String description;
-
-//     @Column(name = "priority")
-//     @JsonProperty(value = "priority", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "0", //
-// 	    required = false, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job priority")
-//     @JsonPropertyTitle("priority")
-//     @GraphQLField
-//     @GraphQLName("priority")
-//     private int priority;
-
-//     @MaxLength(64)
-//     @Column(name = "status", //
-// 	    nullable = false)
-//     @JsonProperty(value = "status", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = STATUS_INIT, //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job state")
-//     @JsonPropertyTitle("Status")
-//     @GraphQLField
-//     @GraphQLName("status")
-//     private String status = STATUS_INIT;
-
-//     @MaxLength(64)
-//     @Column(name = "image", //
-// 	    nullable = false)
-//     @JsonProperty(value = "image", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "opensuse", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job base image")
-//     @JsonPropertyTitle("Image")
-//     @GraphQLField
-//     @GraphQLName("image")
-//     private String image;
-
-//     /**
-//      *
-//      * Here is list of possible
-//      * <ul>
-//      * <li>on_success - execute job only when all jobs from prior stages succeed.
-//      * This is the default.</li>
-//      * <li>on_failure - execute job only when at least one job from prior stages
-//      * fails.</li>
-//      * <li>always - execute job regardless of the status of jobs from prior
-//      * stages.</li>
-//      * <li>manual - execute job manually (added in GitLab 8.10). Read about manual
-//      * actions below.</li>
-//      * </ul>
-//      */
-//     @MaxLength(64)
-//     @Column(name = "when", //
-// 	    nullable = false)
-//     @JsonProperty(value = "when", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "on_success", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Job when")
-//     @JsonPropertyTitle("when")
-//     @GraphQLField
-//     @GraphQLName("when")
-//     private String when = "on_success";
-
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "pipeline_id", //
-// 	    updatable = false, //
-// 	    insertable = false, //
-// 	    nullable = false)
-//     @JsonIgnore
-//     @GraphQLField
-//     @GraphQLName("pipeline")
-//     private Pipeline pipeline;
-
-//     @Column(name = "pipeline_id", //
-// 	    nullable = false)
-//     @JsonProperty(value = "pipeline_id", //
-// 	    defaultValue = "", //
-// 	    access = Access.READ_WRITE, //
-// 	    required = true)
-//     @JsonPropertyDescription("pipeline id")
-//     @GraphQLField
-//     @GraphQLName("pipeline_id")
-//     private Long pipelineId;
-
-//     @JsonIgnore
-//     @OneToOne(mappedBy = "job", //
-// 	    cascade = CascadeType.ALL, //
-// 	    fetch = FetchType.LAZY, //
-// 	    optional = true)
-//     @GraphQLField
-//     @GraphQLName("log")
-//     private Log log;
-
-//     @JsonIgnore
-//     @OneToMany(fetch = FetchType.LAZY, //
-// 	    cascade = { CascadeType.ALL }, //
-// 	    mappedBy = "job")
-//     @GraphQLField
-//     @GraphQLName("artifacts")
-//     private Set<Artifact> artifacts = new HashSet<>();
-
-//     @JsonIgnore
-//     @OneToMany(fetch = FetchType.LAZY, //
-// 	    cascade = { CascadeType.ALL }, //
-// 	    mappedBy = "job")
-//     @GraphQLField
-//     @GraphQLName("attachments")
-//     private Set<Attachment> attachments = new HashSet<>();
-
-//     @JsonIgnore
-//     @ManyToMany(fetch = FetchType.LAZY, //
-// 	    cascade = { CascadeType.ALL })
-//     @JoinTable(name = "jms_job_prerequisite_assoc", //
-// 	    joinColumns = @JoinColumn(name = "job_id"), //
-// 	    inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
-//     @GraphQLField
-//     @GraphQLName("prerequisites")
-//     private Set<Job> prerequisites = new HashSet<>();
-
-//     @JsonIgnore
-//     @ManyToMany(mappedBy = "prerequisites")
-//     @GraphQLField
-//     @GraphQLName("prerequisite_of")
-//     private Set<Job> prerequisitesOf = new HashSet<>();
-
-//     @JsonIgnore
-//     @ManyToMany(fetch = FetchType.LAZY, //
-// 	    cascade = { CascadeType.ALL })
-//     @JoinTable(name = "jms_job_label_assoc", //
-// 	    joinColumns = @JoinColumn(name = "job_id"), //
-// 	    inverseJoinColumns = @JoinColumn(name = "label_id"))
-//     @GraphQLField
-//     @GraphQLName("labels")
-//     private Set<Label> labels = new HashSet<>();
-
-//     @JsonIgnore
-//     @OneToMany(mappedBy = "job", //
-// 	    fetch = FetchType.LAZY)
-//     @GraphQLField
-//     @GraphQLName("attributes")
-//     private Set<Attribute> attributes = new HashSet<>();
-
-//     @JsonIgnore
-//     @OneToMany(mappedBy = "job", //
-// 	    fetch = FetchType.LAZY)
-//     @GraphQLField
-//     @GraphQLName("loggers")
-//     private Set<JobLogger> loggers = new HashSet<>();
-
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_jobs';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Fields
+            'name' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 64,
+                'editable' => true
+            ),
+            'description' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 2048,
+                'editable' => true
+            ),
+            'priority' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'is_null' => false,
+                'default' => 0,
+                'editable' => true
+            ),
+            'status' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 64,
+                'default' => 'init',
+                'editable' => true
+            ),
+            'image' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 256,
+                'editable' => true
+            ),
+            'when' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 64,
+                'default' => 'on_success',
+                'editable' => true
+            ),
+            // File
+            'mime_type' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 64,
+                'default' => 'application/octet-stream',
+                'editable' => true
+            ),
+            'file_name' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 254,
+                'default' => 'unknown',
+                'verbose' => 'file name',
+                'help_text' => 'Content file name',
+                'editable' => true
+            ),
+            'file_path' => array(
+                'type' => 'Pluf_DB_Field_File',
+                'is_null' => false,
+                'size' => 1024,
+                'verbose' => 'File path',
+                'help_text' => 'Content file path',
+                'editable' => false,
+                'readable' => false
+            ),
+            'file_size' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'is_null' => false,
+                'default' => 'no title',
+                'verbose' => 'file size',
+                'help_text' => 'content file size',
+                'editable' => false
+            ),
+            'modif_dtime' => array(
+                'type' => 'Pluf_DB_Field_Datetime',
+                'blank' => true,
+                'verbose' => 'creation',
+                'help_text' => 'content modification time',
+                'editable' => false
+            ),
+            // relations
+            'job_id' => array(
+                'type' => 'Pluf_DB_Field_Foreignkey',
+                'model' => 'Pluf\Jms\Job',
+                'is_null' => false,
+                'name' => 'job',
+                'relate_name' => 'attachments',
+                'graphql_name' => 'job',
+                'editable' => true
+            )
+        );
+        $this->_a['idx'] = array();
+    }
 }

@@ -18,50 +18,83 @@
  */
 namespace Pluf\Jms;
 
-class Attachment extends \Pluf_Model {
+class Attachment extends \Pluf_Model
+{
 
-// @Entity
-// @Table(name = "jms_attachments")
-//     /*
-//      *
-//      */
-//     @JsonIgnore
-//     @XmlTransient
-//     private static final long serialVersionUID = WebpichCoreVersion.SERIAL_VERSION_UID;
-
-//     @Column(name = "extract", //
-// 	    nullable = true, //
-// 	    updatable = true)
-//     @JsonProperty(value = "extract", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "false", //
-// 	    index = 0, //
-// 	    required = false)
-//     @JsonPropertyDescription("extract")
-//     @JsonPropertyTitle("extract")
-//     @GraphQLField
-//     private Boolean extract = false;
-
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "job_id", //
-// 	    updatable = false, //
-// 	    insertable = false, //
-// 	    nullable = false)
-//     @JsonIgnore
-//     @GraphQLField
-//     @GraphQLName("job")
-//     private Job job;
-
-//     @Column(name = "job_id", //
-// 	    nullable = false)
-//     @JsonProperty(value = "job_id", //
-// 	    defaultValue = "", //
-// 	    access = Access.READ_WRITE, //
-// 	    required = true)
-//     @JsonPropertyDescription("job id of the artifact.")
-//     @GraphQLField
-//     @GraphQLName("job_id")
-//     private Long jobId;
-
-
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_attachments';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Model
+            'extract' => array(
+                'type' => 'Pluf_DB_Field_Boolean',
+                'is_null' => false,
+                'default' => false,
+                'editable' => false
+            ),
+            // File
+            'mime_type' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 64,
+                'default' => 'application/octet-stream',
+                'editable' => true
+            ),
+            'file_name' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => false,
+                'size' => 254,
+                'default' => 'unknown',
+                'verbose' => 'file name',
+                'help_text' => 'Content file name',
+                'editable' => true
+            ),
+            'file_path' => array(
+                'type' => 'Pluf_DB_Field_File',
+                'is_null' => false,
+                'size' => 1024,
+                'verbose' => 'File path',
+                'help_text' => 'Content file path',
+                'editable' => false,
+                'readable' => false
+            ),
+            'file_size' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'is_null' => false,
+                'default' => 'no title',
+                'verbose' => 'file size',
+                'help_text' => 'content file size',
+                'editable' => false
+            ),
+            'modif_dtime' => array(
+                'type' => 'Pluf_DB_Field_Datetime',
+                'blank' => true,
+                'verbose' => 'creation',
+                'help_text' => 'content modification time',
+                'editable' => false
+            ),
+            // relations
+            'job_id' => array(
+                'type' => 'Pluf_DB_Field_Foreignkey',
+                'model' => 'Pluf\Jms\Job',
+                'is_null' => false,
+                'name' => 'job',
+                'relate_name' => 'attachments',
+                'graphql_name' => 'job',
+                'editable' => true
+            )
+        );
+        $this->_a['idx'] = array();
+    }
 }

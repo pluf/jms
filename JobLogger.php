@@ -18,66 +18,54 @@
  */
 namespace Pluf\Jms;
 
+class JobLogger extends \Pluf_Model
+{
 
-class JobLogger extends \Pluf_Model {
-
-//     @Entity
-//     @Table(name = "jms_loggers")
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "job_id", //
-// 	    updatable = false, //
-// 	    insertable = false, //
-// 	    nullable = false)
-//     @JsonIgnore
-//     @GraphQLField
-//     @GraphQLName("job")
-//     private Job job;
-
-//     @Column(name = "job_id", //
-// 	    nullable = false)
-//     @JsonProperty(value = "job_id", //
-// 	    defaultValue = "", //
-// 	    access = Access.READ_WRITE, //
-// 	    required = true)
-//     @JsonPropertyDescription("job id of the artifact.")
-//     @GraphQLField
-//     @GraphQLName("job_id")
-//     private Long jobId;
-
-//     @Column(name = "url", //
-// 	    nullable = false)
-//     @JsonProperty(value = "url", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "http://localhost", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Logger url")
-//     @JsonPropertyTitle("url")
-//     @GraphQLField
-//     private String url;
-
-//     @Column(name = "period", //
-// 	    nullable = false)
-//     @JsonProperty(value = "period", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "http://localhost", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Logger period")
-//     @JsonPropertyTitle("period")
-//     @GraphQLField
-//     private String period;
-
-//     @Column(name = "template", //
-// 	    nullable = false)
-//     @JsonProperty(value = "template", //
-// 	    access = Access.READ_WRITE, //
-// 	    defaultValue = "http://localhost", //
-// 	    required = true, //
-// 	    index = 0)
-//     @JsonPropertyDescription("Logger template")
-//     @JsonPropertyTitle("template")
-//     @GraphQLField
-//     private String template;
-
+    /**
+     * Initialize the data model
+     *
+     * @see Pluf_Model::init()
+     */
+    function init()
+    {
+        $this->_a['table'] = 'jms_job_loggers';
+        $this->_a['cols'] = array(
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'is_null' => false,
+                'editable' => false
+            ),
+            // Fields
+            'url' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 1024,
+                'editable' => true
+            ),
+            'period' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 256,
+                'editable' => true
+            ),
+            'template' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 1024,
+                'editable' => true
+            ),
+            // relations
+            'job_id' => array(
+                'type' => 'Pluf_DB_Field_Foreignkey',
+                'model' => 'Pluf\Jms\Job',
+                'is_null' => false,
+                'name' => 'job',
+                'relate_name' => 'attachments',
+                'graphql_name' => 'job',
+                'editable' => true
+            )
+        );
+        $this->_a['idx'] = array();
+    }
 }
