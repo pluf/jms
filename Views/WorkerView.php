@@ -18,15 +18,6 @@
  */
 namespace Pluf\Jms;
 
-class Module
+class WorkerView extends \Pluf_Views
 {
-
-    const moduleJsonPath = __DIR__ . '/module.json';
-
-    /**
-     * All data model relations
-     */
-    const relations = array();
-
-    const urlsPath = __DIR__ . '/urls.php';
 }
