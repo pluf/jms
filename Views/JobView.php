@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace Pluf\Jms;
+namespace Pluf\Jms\Views;
 
-class JobViews extends \Pluf_Views
+class JobView extends \Pluf_Views
 {
 
 }

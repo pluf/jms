@@ -18,7 +18,7 @@
  */
 namespace Pluf\Jms;
 
-class Job extends ModelBinary
+class Job extends \Pluf_Model
 {
 
     /**

@@ -39,7 +39,7 @@ use CMS_TermTaxonomy;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class RestTest extends TestCase
+class PipelineRestTest extends TestCase
 {
 
     /**
@@ -110,10 +110,10 @@ class RestTest extends TestCase
         // we have to init client for eny test
         $client = new Test_Client(array(
             array(
-                'app' => 'Backup',
-                'regex' => '#^/backup#',
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
                 'base' => '',
-                'sub' => Pluf\Backup\Module::urls
+                'sub' => include Pluf\Jms\Module::urlsPath
             ),
             array(
                 'app' => 'User',
@@ -125,24 +125,25 @@ class RestTest extends TestCase
         $client->clean();
 
         // login
-        $response = $client->get('/backup/snapshots/schema');
+        $response = $client->get('/jms/pipelines/schema');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
+
 
     /**
      *
      * @test
      */
-    public function loadTemplate()
+    public function gettingListOfPipelines()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
             array(
-                'app' => 'Backup',
-                'regex' => '#^/backup#',
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
                 'base' => '',
-                'sub' => Pluf\Backup\Module::urls
+                'sub' => include Pluf\Jms\Module::urlsPath
             ),
             array(
                 'app' => 'User',
@@ -161,58 +162,7 @@ class RestTest extends TestCase
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
-        // create snapshot
-        $response = $client->post('/backup/snapshots', array(
-            'title' => 'test',
-            'description' => 'test'
-        ));
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-    }
-
-    /**
-     *
-     * @test
-     */
-    public function dowloadTheSnapshot()
-    {
-        // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Backup',
-                'regex' => '#^/backup#',
-                'base' => '',
-                'sub' => Pluf\Backup\Module::urls
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
-        $client->clean();
-
-        // login
-        $response = $client->post('/user/login', array(
-            'login' => 'test',
-            'password' => 'test'
-        ));
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-
-        // create snapshot
-        $response = $client->post('/backup/snapshots', array(
-            'title' => 'test',
-            'description' => 'test'
-        ));
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-
-        $actual = json_decode($response->content, true);
-
-        // download snapshot
-        $response = $client->get('/backup/snapshots/' . $actual['id'] . '/content');
+        $response = $client->get('/jms/pipelines');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }

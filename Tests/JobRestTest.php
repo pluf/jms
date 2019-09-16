@@ -39,7 +39,7 @@ use CMS_TermTaxonomy;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ServiceTest extends TestCase
+class JobRestTest extends TestCase
 {
 
     /**
@@ -105,73 +105,65 @@ class ServiceTest extends TestCase
      *
      * @test
      */
-    public function createBackupTest()
+    public function gettingSnapshotSchema()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array());
+        $client = new Test_Client(array(
+            array(
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
+                'base' => '',
+                'sub' => include Pluf\Jms\Module::urlsPath
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls-v2.php'
+            )
+        ));
         $client->clean();
 
-        $name = 'test-content-' . rand();
-
-        $c = new CMS_Content();
-        $c->file_path = Pluf_Tenant::storagePath() . '/test.txt';
-        $c->mime_time = 'text/plain';
-        $c->name = $name;
-        $c->create();
-
-        $term = new CMS_Term();
-        $term->name = "my term";
-        $term->create();
-
-        $termtaxo = new CMS_TermTaxonomy();
-        $termtaxo->term_id = $term;
-        $termtaxo->taxonomy = "test";
-        $termtaxo->create();
-
-        $termtaxo->setAssoc($c);
-
-        // create file
-        $myfile = fopen($c->file_path, "w") or die("Unable to open file!");
-        $txt = "John Doe\n";
-        fwrite($myfile, $txt);
-        $txt = "Jane Doe\n";
-        fwrite($myfile, $txt);
-        fclose($myfile);
-
-        $zipFilePath = __DIR__ . '/tmp/backupfile' . rand() . '.zip';
-        Pluf\Backup\Service::storeData($zipFilePath);
-        Test_Assert::assertTrue(file_exists($zipFilePath), 'Backup file is not created');
-
-        $termtaxo->delete();
-        $term->delete();
-        $c->delete();
-
-        Pluf\Backup\Service::loadData($zipFilePath);
-
-        Pluf::loadFunction('CMS_Shortcuts_GetNamedContentOr404');
-        $c = CMS_Shortcuts_GetNamedContentOr404($name);
-        Test_Assert::assertFalse($c->isAnonymous());
-        $list = $c->get_term_taxonomies_list();
-
-        $zipFilePath2 = __DIR__ . '/tmp/backupfile2-' . rand() . '.zip';
-        Pluf\Backup\Service::storeData($zipFilePath2);
-        Test_Assert::assertTrue(file_exists($zipFilePath2), 'Backup file is not created');
+        // login
+        $response = $client->get('/jms/jobs/schema');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
     }
+
 
     /**
      *
      * @test
      */
-    public function loadTemplate()
+    public function gettingListOfPipelines()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array());
+        $client = new Test_Client(array(
+            array(
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
+                'base' => '',
+                'sub' => include Pluf\Jms\Module::urlsPath
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls-v2.php'
+            )
+        ));
         $client->clean();
 
-        Pluf\Backup\Service::loadData(__DIR__ . '/template-001.zip');
+        // login
+        $response = $client->post('/user/login', array(
+            'login' => 'test',
+            'password' => 'test'
+        ));
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
 
-        $zipFilePath2 = __DIR__ . '/tmp/templateback-' . rand() . '.zip';
-        Pluf\Backup\Service::storeData($zipFilePath2);
-        Test_Assert::assertTrue(file_exists($zipFilePath2), 'Backup file is not created');
+        $response = $client->get('/jms/jobs');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
     }
 }
