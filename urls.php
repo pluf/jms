@@ -249,5 +249,45 @@ return array(
         'params' => array(
             'model' => 'Pluf\Jms\Attribute'
         )
+    ),
+
+
+    /**
+     * **************************************************************
+     * Labels
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/labels/schema$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/labels$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/labels/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
     )
 );

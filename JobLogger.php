@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms;
 
-class JobLogger extends \Pluf_Model
+use Pluf_Model;
+
+class JobLogger extends Pluf_Model
 {
 
     /**
