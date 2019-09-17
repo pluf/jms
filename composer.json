@@ -1,0 +1,52 @@
+{
+	"name" : "pluf/jms",
+	"description" : "Job Management System",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Mostafa Barmshory",
+			"email" : "mostafa.barmshory@dpq.co.ir",
+			"homepage" : "http://dpq.co.ir",
+			"role" : "developer"
+		}, {
+			"name" : "Mohammad Hadi Mansouri",
+			"email" : "mohammad.hadi.mansouri@dpq.co.ir",
+			"homepage" : "http://dpq.co.ir",
+			"role" : "developer"
+		}
+	],
+	"minimum-stability" : "stable",
+	"require" : {
+		"pluf/core" : "5.11.x",
+		"pluf/monitor" : "5.11.x",
+		"php-amqplib/php-amqplib" : ">=2.6.1"
+	},
+	"require-dev" : {
+		"pluf/test" : "5.11.x",
+		"pluf/cms" : "5.11.x",
+		"pluf/tenant" : "5.11.x",
+		"pluf/user" : "5.11.x"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Pluf\\Jms\\" : ""
+		},
+		"exclude-from-classmap" : [
+			"/tests/"
+		]
+	},
+	"homepage" : "https://github.com/pluf/cache",
+	"support" : {
+		"email" : "info@pluf.ir",
+		"issues" : "https://github.com/pluf/cms/issues",
+		"forum" : "https://github.com/pluf/cms",
+		"wiki" : "https://github.com/pluf/cms/wiki",
+		"source" : "https://github.com/pluf/cms"
+	},
+	"keywords" : [
+		"pluf",
+		"php",
+		"pluf-module",
+		"job"
+	]
+}
