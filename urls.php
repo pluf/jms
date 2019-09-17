@@ -329,5 +329,45 @@ return array(
         'params' => array(
             'model' => 'Pluf\Jms\Label'
         )
+    ),
+
+
+    /**
+     * **************************************************************
+     * job logger
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/job-loggers/schema$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+    array(
+        'regex' => '#^/job-loggers$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+    array(
+        'regex' => '#^/job-loggers/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
     )
 );

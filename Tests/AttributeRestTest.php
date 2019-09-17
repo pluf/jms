@@ -198,6 +198,7 @@ class AttributeRestTest extends TestCase
         $attr = new Pluf\Jms\Attribute();
         $attr->key = 'test-key';
         $attr->value = 'test value';
+        $attr->job_id = $job;
         $attr->create();
 
         // 1- Login

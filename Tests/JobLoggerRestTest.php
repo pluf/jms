@@ -37,7 +37,7 @@ use Test_Assert;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class JobLogRestTest extends TestCase
+class JobLogggerRestTest extends TestCase
 {
 
     /**
@@ -123,7 +123,7 @@ class JobLogRestTest extends TestCase
         $client->clean();
 
         // login
-        $response = $client->get('/jms/job-logs/schema');
+        $response = $client->get('/jms/job-loggers/schema');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
     }
@@ -158,7 +158,7 @@ class JobLogRestTest extends TestCase
         ));
         Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
-        $response = $client->get('/jms/job-logs');
+        $response = $client->get('/jms/job-loggers');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
         Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
@@ -195,11 +195,10 @@ class JobLogRestTest extends TestCase
         $job->pipeline_id = $pipeline->id;
         $job->create();
 
-        $log = new Pluf\Jms\JobLog();
-        $log->file_name = 'random-file';
-        $log->file_pat = __DIR__ . 'data/hi.txt';
-        $log->job_id = $job;
-        $log->create();
+        $logger = new Pluf\Jms\JobLogger();
+        $logger->template = '{test} name is {id}';
+        $logger->job_id = $job;
+        $logger->create();
 
         // 1- Login
         $response = $client->post('/user/login', array(
@@ -208,7 +207,7 @@ class JobLogRestTest extends TestCase
         ));
         Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
-        $response = $client->get('/jms/job-logs');
+        $response = $client->get('/jms/job-loggers');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
         Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
