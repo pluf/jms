@@ -18,7 +18,10 @@
  */
 namespace Pluf\Jms;
 
-class Artifact extends \Pluf_Model
+use Pluf_FileUtil;
+use Pluf_Model;
+
+class Artifact extends Pluf_Model
 {
 
     /**
@@ -42,8 +45,7 @@ class Artifact extends \Pluf_Model
                 'is_null' => false,
                 'default' => '/',
                 'size' => 1024,
-                'editable' => true,
-                'help' => "Path of artifacts in working directory"
+                'editable' => true
             ),
             // File
             'mime_type' => array(

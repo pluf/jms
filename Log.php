@@ -28,7 +28,7 @@ class Log extends \Pluf_Model
      */
     function init()
     {
-        $this->_a['table'] = 'jms_artifacts';
+        $this->_a['table'] = 'jms_logs';
         $this->_a['cols'] = array(
             // Identifier
             'id' => array(

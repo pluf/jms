@@ -16,23 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace Pluf\Backup\Tests;
+namespace Pluf\SuperJms\Tests;
 
 require_once 'Pluf.php';
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
 use Pluf;
-use Pluf_Tenant;
+use Pluf_Exception;
+use Pluf_HTTP_Request;
 use Pluf_Migration;
-use Test_Client;
-use Test_Assert;
-use User_Role;
+use Pluf_Tenant;
 use User_Account;
 use User_Credential;
-use CMS_Content;
-use CMS_Term;
-use CMS_TermTaxonomy;
+use User_Role;
+use Test_Client;
+use Test_Assert;
 
 /**
  *
@@ -75,7 +73,7 @@ class PipelineRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Exception();
+            throw new Pluf_Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -84,7 +82,7 @@ class PipelineRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Exception();
+            throw new Pluf_Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');
@@ -129,7 +127,6 @@ class PipelineRestTest extends TestCase
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-
 
     /**
      *
