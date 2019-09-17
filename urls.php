@@ -331,7 +331,6 @@ return array(
         )
     ),
 
-
     /**
      * **************************************************************
      * job logger
@@ -368,6 +367,45 @@ return array(
         ),
         'params' => array(
             'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * Worker
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/workers/schema$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
+        )
+    ),
+    array(
+        'regex' => '#^/workers$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
+        )
+    ),
+    array(
+        'regex' => '#^/workers/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
         )
     )
 );
