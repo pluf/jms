@@ -126,8 +126,8 @@ class JobRestTest extends TestCase
 
         // login
         $response = $client->get('/jms/jobs/schema');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
     }
 
 
@@ -154,16 +154,63 @@ class JobRestTest extends TestCase
         ));
         $client->clean();
 
-        // login
+        // 1- Login
         $response = $client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
         $response = $client->get('/jms/jobs');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+    }
+
+
+
+
+    /**
+     *
+     * @test
+     */
+    public function gettingNonemptyListOfJobs()
+    {
+        // we have to init client for eny test
+        $client = new Test_Client(array(
+            array(
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
+                'base' => '',
+                'sub' => include Pluf\Jms\Module::urlsPath
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls-v2.php'
+            )
+        ));
+        $client->clean();
+
+        $pipeline = new Pluf\Jms\Pipeline();
+        $pipeline->title = 'New tilte';
+        $pipeline->create();
+
+        $job = new Pluf\Jms\Job();
+        $job->pipeline_id = $pipeline->id;
+        $job->create();
+
+        // 1- Login
+        $response = $client->post('/user/login', array(
+            'login' => 'test',
+            'password' => 'test'
+        ));
+        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
+
+        $response = $client->get('/jms/jobs');
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
     }
 }
