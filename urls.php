@@ -101,9 +101,6 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Pluf\Jms\Job'
-        ),
-        'params' => array(
-            'model' => 'Pluf\Jms\Job'
         )
     ),
     /*
@@ -148,9 +145,6 @@ return array(
         'method' => 'getSchema',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Pluf\Jms\Artifacts'
-        ),
-        'params' => array(
             'model' => 'Pluf\Jms\Artifact'
         )
     ),
@@ -176,6 +170,45 @@ return array(
         ),
         'params' => array(
             'model' => 'Pluf\Jms\Artifact'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * Attachments
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/attachments/schema$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
+    array(
+        'regex' => '#^/attachments$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
+    array(
+        'regex' => '#^/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
         )
     )
 );
