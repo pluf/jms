@@ -24,7 +24,7 @@ class Pipeline extends \Pluf_Model
     /**
      * Initialize the data model
      *
-     * @see Pluf_Model::init()
+     * @see \Pluf_Model::init()
      */
     function init()
     {
