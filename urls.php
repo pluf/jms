@@ -210,5 +210,44 @@ return array(
         'params' => array(
             'model' => 'Pluf\Jms\Attachment'
         )
+    ),
+
+    /**
+     * **************************************************************
+     * attributes
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/attributes/schema$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
+    ),
+    array(
+        'regex' => '#^/attributes$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
+    ),
+    array(
+        'regex' => '#^/attributes/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
     )
 );
