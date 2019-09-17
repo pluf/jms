@@ -289,5 +289,45 @@ return array(
         'params' => array(
             'model' => 'Pluf\Jms\Label'
         )
+    ),
+
+
+    /**
+     * **************************************************************
+     * job logs
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/job-logs/schema$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/job-logs$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/job-logs/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
     )
 );

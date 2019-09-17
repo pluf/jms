@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms\Views;
 
-class LogView extends \Pluf_Views
+use Pluf_Views;
+
+class JobLogView extends Pluf_Views
 {
 
 }

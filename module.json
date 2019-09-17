@@ -8,8 +8,8 @@
         "Pluf\\Jms\\Attribute",
         "Pluf\\Jms\\Job",
         "Pluf\\Jms\\JobLogger",
+        "Pluf\\Jms\\JobLog",
         "Pluf\\Jms\\Label",
-        "Pluf\\Jms\\Log",
         "Pluf\\Jms\\Pipeline",
         "Pluf\\Jms\\Worker"
 	],
