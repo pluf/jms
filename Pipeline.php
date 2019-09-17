@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms;
 
-class Pipeline extends \Pluf_Model
+use Pluf_Model;
+
+class Pipeline extends Pluf_Model
 {
 
     /**

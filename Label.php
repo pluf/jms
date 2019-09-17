@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms;
 
-class Label extends \Pluf_Model
+use Pluf_Model;
+
+class Label extends Pluf_Model
 {
 
     /**
