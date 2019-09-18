@@ -192,7 +192,7 @@ class AttachmentRestTest extends TestCase
         $pipeline->create();
 
         $job = new Pluf\Jms\Job();
-        $job->pipeline_id = $pipeline->id;
+        $job->pipeline_id = $pipeline;
         $job->create();
 
         $attach = new Pluf\Jms\Attachment();
