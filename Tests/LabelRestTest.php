@@ -203,4 +203,39 @@ class LabelRestTest extends TestCase
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
         Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
     }
+
+
+
+    /**
+     *
+     * @test
+     */
+    public function addingLabelToJob()
+    {
+        // we have to init client for eny test
+        $client = new Test_Client(array(
+            array(
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
+                'base' => '',
+                'sub' => include Pluf\Jms\Module::urlsPath
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls-v2.php'
+            )
+        ));
+        $client->clean();
+
+        $pipline = new Pluf\Jms\Pipeline();
+        $pipline->create();
+
+        $label = new Pluf\Jms\Label();
+        $label->name = 'test-label-name-' . rand();
+        $label->create();
+
+        $pipline->setAssoc($label);
+    }
 }

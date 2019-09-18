@@ -26,7 +26,13 @@ class Module
     /**
      * All data model relations
      */
-    const relations = array();
+    const relations = array(
+        'Pluf\Jms\Pipeline' => array(
+            'relate_to_many' => array(
+                'Pluf\Jms\Label'
+            )
+        ),
+    );
 
     const urlsPath = __DIR__ . '/urls.php';
 }

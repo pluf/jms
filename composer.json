@@ -32,7 +32,7 @@
 			"Pluf\\Jms\\" : ""
 		},
 		"exclude-from-classmap" : [
-			"/tests/"
+			"/Tests/"
 		]
 	},
 	"homepage" : "https://github.com/pluf/cache",

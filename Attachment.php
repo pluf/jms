@@ -18,7 +18,7 @@
  */
 namespace Pluf\Jms;
 
-class Attachment extends \Pluf_Model
+class Attachment extends Pluf_ModelBinary
 {
 
     /**
