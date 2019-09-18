@@ -73,14 +73,14 @@ class Job extends Pluf_ModelBinary
                 'editable' => true
             ),
             // relations
-            'job_id' => array(
+            'pipeline_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf\Jms\Job',
+                'model' => 'Pluf\Jms\Pipeline',
                 'is_null' => false,
-                'name' => 'job',
-                'relate_name' => 'attachments',
-                'graphql_name' => 'job',
-                'editable' => true
+                'name' => 'pipeline',
+                'graphql_name' => 'pipeline',
+                'relate_name' => 'jobs',
+                'editable' => false
             )
         ));
     }
