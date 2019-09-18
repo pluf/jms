@@ -231,11 +231,14 @@ class LabelRestTest extends TestCase
 
         $pipline = new Pluf\Jms\Pipeline();
         $pipline->create();
+        Test_Assert::assertResponseNotNull($pipline, 'Find create pipeline');
 
         $label = new Pluf\Jms\Label();
         $label->name = 'test-label-name-' . rand();
         $label->create();
+        Test_Assert::assertResponseNotNull($label, 'Find create pipeline');
 
         $pipline->setAssoc($label);
+
     }
 }

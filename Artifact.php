@@ -18,6 +18,8 @@
  */
 namespace Pluf\Jms;
 
+use Pluf_ModelBinary;
+
 class Artifact extends Pluf_ModelBinary
 {
 

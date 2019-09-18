@@ -1,5 +1,7 @@
 <?php
 
+namespace Pluf\Jms;
+
 class JobState
 {
     public const init = "new";
