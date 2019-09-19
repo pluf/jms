@@ -20,7 +20,9 @@ CREATE TABLE `jms_artifacts` (
 	`modif_dtime` datetime,
 	/* Relation */
 	`job_id` bigint NOT NULL,
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
@@ -38,7 +40,9 @@ CREATE TABLE `jms_attachments` (
 	`modif_dtime` datetime,
 	/* Relation */
 	`job_id` bigint NOT NULL,
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
@@ -51,7 +55,9 @@ CREATE TABLE `jms_attributes` (
 	`value` varchar(2048),
 	/* Relation */
 	`job_id` bigint NOT NULL,
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
@@ -77,7 +83,9 @@ CREATE TABLE `jms_jobs` (
 	`modif_dtime` datetime,
 	/* Relation */
 	`pipeline_id` bigint NOT NULL,
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jms_job_loggers` (
@@ -88,7 +96,9 @@ CREATE TABLE `jms_job_loggers` (
     `template` varchar(1024),
 	/* Relation */
 	`job_id` bigint NOT NULL,
-    PRIMARY KEY (`id`)
+    `tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
@@ -100,7 +110,9 @@ CREATE TABLE `jms_labels` (
     `id` bigint NOT NULL AUTO_INCREMENT,
 	/* Model */
 	`name` varchar(64) NOT NULL DEFAULT 'name',
-    PRIMARY KEY (`id`)
+    `tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jms_logs` (
@@ -114,7 +126,9 @@ CREATE TABLE `jms_logs` (
 	`modif_dtime` datetime,
 	/* Relation */
 	`job_id` bigint NOT NULL,
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jms_pipelines` (
@@ -123,7 +137,9 @@ CREATE TABLE `jms_pipelines` (
 	`title` varchar (256) DEFAULT 'pipeline',
 	`description` varchar (2048),
 	`status` varchar (64) NOT NULL DEFAULT 'init',
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `jms_workers` (
@@ -132,7 +148,9 @@ CREATE TABLE `jms_workers` (
 	`title` varchar (256) DEFAULT 'worker',
 	`description` varchar (2048),
 	`token` varchar (2048),
-	PRIMARY KEY (`id`)
+	`tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -164,7 +182,7 @@ CREATE TABLE `jms_jobs_jms_jobs_assoc` (
 
 
 
-ALTER TABLE `jms_loggers` 
+ALTER TABLE `jms_job_loggers` 
    ADD CONSTRAINT `fk__jms_job__rJ8C4h` 
    FOREIGN KEY (`job_id`) 
    REFERENCES `jms_jobs` (`id`);

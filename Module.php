@@ -26,7 +26,28 @@ class Module
     /**
      * All data model relations
      */
-    const relations = array();
+    const relations = array(
+        'Pluf\Jms\Pipeline' => array(
+            'relate_to_many' => array(
+                'Pluf\Jms\Label'
+            )
+        ),
+        'Pluf\Jms\Attachment' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        ),
+        'Pluf\Jms\Attribute' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        ),
+        'Pluf\Jms\JobLogger' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        )
+    );
 
     const urlsPath = __DIR__ . '/urls.php';
 }

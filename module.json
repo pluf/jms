@@ -3,10 +3,13 @@
 	"version": "0.1.0",
 	"title": "Job Management System",
 	"model": [
+        "Pluf\\Jms\\Artifact",
+        "Pluf\\Jms\\Attachment",
+        "Pluf\\Jms\\Attribute",
         "Pluf\\Jms\\Job",
         "Pluf\\Jms\\JobLogger",
+        "Pluf\\Jms\\JobLog",
         "Pluf\\Jms\\Label",
-        "Pluf\\Jms\\Log",
         "Pluf\\Jms\\Pipeline",
         "Pluf\\Jms\\Worker"
 	],

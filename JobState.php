@@ -18,35 +18,14 @@
  */
 namespace Pluf\Jms;
 
-use Pluf_Model;
-
-class Label extends Pluf_Model
+class JobState
 {
-
-    /**
-     * Initialize the data model
-     *
-     * @see Pluf_Model::init()
-     */
-    function init()
-    {
-        $this->_a['table'] = 'jms_labels';
-        $this->_a['cols'] = array(
-            // Identifier
-            'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
-                'is_null' => false,
-                'editable' => false
-            ),
-            // Fields
-            'name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
-                'is_null' => false,
-                'size' => 1024,
-                'default' => 'name',
-                'editable' => true
-            )
-        );
-        $this->_a['idx'] = array();
-    }
+    public const init = "new";
+    public const wait = "ready";
+    public const inProgress = "in-progress";
+    public const stopped = "stopped";
+    public const error = "error";
+    public const complete = "done";
 }
+
+

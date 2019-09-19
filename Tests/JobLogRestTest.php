@@ -16,30 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace Pluf\Backup\Tests;
+namespace Pluf\Jms\Tests;
 
 require_once 'Pluf.php';
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
 use Pluf;
-use Pluf_Tenant;
+use Pluf_Exception;
+use Pluf_HTTP_Request;
 use Pluf_Migration;
-use Test_Client;
-use Test_Assert;
-use User_Role;
+use Pluf_Tenant;
 use User_Account;
 use User_Credential;
-use CMS_Content;
-use CMS_Term;
-use CMS_TermTaxonomy;
+use User_Role;
+use Test_Client;
+use Test_Assert;
 
 /**
  *
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class PipelineRestTest extends TestCase
+class JobLogRestTest extends TestCase
 {
 
     /**
@@ -75,7 +73,7 @@ class PipelineRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Exception();
+            throw new Pluf_Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -84,7 +82,7 @@ class PipelineRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Exception();
+            throw new Pluf_Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');
@@ -105,7 +103,7 @@ class PipelineRestTest extends TestCase
      *
      * @test
      */
-    public function gettingSnapshotSchema()
+    public function gettingModelSchema()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
@@ -125,17 +123,16 @@ class PipelineRestTest extends TestCase
         $client->clean();
 
         // login
-        $response = $client->get('/jms/pipelines/schema');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        $response = $client->get('/jms/job-logs/schema');
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
     }
-
 
     /**
      *
      * @test
      */
-    public function gettingListOfPipelines()
+    public function gettingListOfAllArtifacts()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
@@ -154,16 +151,66 @@ class PipelineRestTest extends TestCase
         ));
         $client->clean();
 
-        // login
+        // 1- Login
         $response = $client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
-        $response = $client->get('/jms/pipelines');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+        $response = $client->get('/jms/job-logs');
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+    }
+
+    /**
+     *
+     * @test
+     */
+    public function gettingNonEmptyArtifacts()
+    {
+        // we have to init client for eny test
+        $client = new Test_Client(array(
+            array(
+                'app' => 'Jms',
+                'regex' => '#^/jms#',
+                'base' => '',
+                'sub' => include Pluf\Jms\Module::urlsPath
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls-v2.php'
+            )
+        ));
+        $client->clean();
+
+        $pipeline = new Pluf\Jms\Pipeline();
+        $pipeline->title = 'New tilte';
+        $pipeline->create();
+
+        $job = new Pluf\Jms\Job();
+        $job->pipeline_id = $pipeline;
+        $job->create();
+
+        $log = new Pluf\Jms\JobLog();
+        $log->file_name = 'random-file';
+        $log->file_pat = __DIR__ . 'data/hi.txt';
+        $log->job_id = $job;
+        $log->create();
+
+        // 1- Login
+        $response = $client->post('/user/login', array(
+            'login' => 'test',
+            'password' => 'test'
+        ));
+        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
+
+        $response = $client->get('/jms/job-logs');
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
     }
 }

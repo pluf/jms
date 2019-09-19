@@ -20,7 +20,7 @@ namespace Pluf\Jms;
 
 use Pluf_ModelBinary;
 
-class Artifact extends Pluf_ModelBinary
+class JobLog extends Pluf_ModelBinary
 {
 
     /**
@@ -31,22 +31,22 @@ class Artifact extends Pluf_ModelBinary
     function init()
     {
         parent::init();
-        $this->_a['table'] = 'jms_artifacts';
+        $this->_a['table'] = 'jms_logs';
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
-            'path' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+            // Identifier
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
                 'is_null' => false,
-                'default' => '/',
-                'size' => 1024,
-                'editable' => true
+                'editable' => false
             ),
+            // Fields
             // relations
             'job_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
-                'relate_name' => 'artifacts',
+                'relate_name' => 'attachments',
                 'graphql_name' => 'job',
                 'editable' => true
             )

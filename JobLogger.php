@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms;
 
-class JobLogger extends \Pluf_Model
+use Pluf_Model;
+
+class JobLogger extends Pluf_Model
 {
 
     /**
@@ -61,7 +63,7 @@ class JobLogger extends \Pluf_Model
                 'model' => 'Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
-                'relate_name' => 'attachments',
+                'relate_name' => 'loggers',
                 'graphql_name' => 'job',
                 'editable' => true
             )

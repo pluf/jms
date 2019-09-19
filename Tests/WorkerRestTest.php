@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace Pluf\SuperJms\Tests;
+namespace Pluf\Jms\Tests;
 
 require_once 'Pluf.php';
 
@@ -37,7 +37,7 @@ use Test_Assert;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class JobRestTest extends TestCase
+class WorkerRestTest extends TestCase
 {
 
     /**
@@ -103,7 +103,7 @@ class JobRestTest extends TestCase
      *
      * @test
      */
-    public function gettingSnapshotSchema()
+    public function gettingModelSchema()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
@@ -123,7 +123,7 @@ class JobRestTest extends TestCase
         $client->clean();
 
         // login
-        $response = $client->get('/jms/jobs/schema');
+        $response = $client->get('/jms/workers/schema');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
     }
@@ -132,7 +132,7 @@ class JobRestTest extends TestCase
      *
      * @test
      */
-    public function gettingListOfPipelines()
+    public function gettingListOfAllArtifacts()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
@@ -158,7 +158,7 @@ class JobRestTest extends TestCase
         ));
         Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
-        $response = $client->get('/jms/jobs');
+        $response = $client->get('/jms/workers');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
         Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
@@ -168,7 +168,7 @@ class JobRestTest extends TestCase
      *
      * @test
      */
-    public function gettingNonemptyListOfJobs()
+    public function gettingNonEmptyArtifacts()
     {
         // we have to init client for eny test
         $client = new Test_Client(array(
@@ -187,13 +187,9 @@ class JobRestTest extends TestCase
         ));
         $client->clean();
 
-        $pipeline = new Pluf\Jms\Pipeline();
-        $pipeline->title = 'New tilte';
-        $pipeline->create();
-
-        $job = new Pluf\Jms\Job();
-        $job->pipeline_id = $pipeline;
-        $job->create();
+        $worker = new Pluf\Jms\Worker();
+        $worker->title = 'My new worker';
+        $worker->create();
 
         // 1- Login
         $response = $client->post('/user/login', array(
@@ -202,7 +198,7 @@ class JobRestTest extends TestCase
         ));
         Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
 
-        $response = $client->get('/jms/jobs');
+        $response = $client->get('/jms/workers');
         Test_Assert::assertResponseNotNull($response, 'Find result is empty');
         Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
         Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');

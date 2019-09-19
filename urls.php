@@ -1,8 +1,10 @@
 <?php
 return array(
-    /****************************************************************
+    /**
+     * **************************************************************
      * Pipelines
-     ****************************************************************/
+     * **************************************************************
+     */
     array(
         'regex' => '#^/pipelines/schema$#',
         'model' => 'Pluf\Jms\Views\PipelineView',
@@ -27,30 +29,6 @@ return array(
             'model' => 'Pluf\Jms\Pipeline'
         )
     ),
-//     array(
-//         'regex' => '#^/pipelines$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'createPipeline',
-//         'http-method' => 'POST',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         ),
-//     'params' => array(
-//         'model' => 'Pluf\Jms\Pipeline'
-//     )
-//     ),
-//     array(
-//         'regex' => '#^/pipelines$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'deletePipeline',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         ),
-//     'params' => array(
-//         'model' => 'Pluf\Jms\Pipeline'
-//     )
-//     ),
     /*
      * Snapshot itmes
      */
@@ -66,28 +44,12 @@ return array(
             'model' => 'Pluf\Jms\Pipeline'
         )
     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'create',
-//         'http-method' => 'POST',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'method',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
 
-    /****************************************************************
+    /**
+     * **************************************************************
      * Pipelines/Jobs
-     ****************************************************************/
+     * **************************************************************
+     */
     array(
         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs/schema$#',
         'model' => 'Pluf\Jms\Views\PipelineView',
@@ -116,34 +78,6 @@ return array(
             'model' => 'Pluf\Jms\Job'
         )
     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'createManyToOne',
-//         'http-method' => 'POST',
-//         'precond' => array(
-//             // TODO: maso
-//         ),
-//         'params' => array(
-//             'parent' => 'Pluf\Jms\Pipeline',
-//             'parentKey' => 'pipeline_id',
-//             'model' => 'Pluf\Jms\Job'
-//         )
-//     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'clearManyToOne',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             // TODO: maso
-//         ),
-//         'params' => array(
-//             'parent' => 'Pluf\Jms\Pipeline',
-//             'parentKey' => 'pipeline_id',
-//             'model' => 'Pluf\Jms\Job'
-//         )
-//     ),
     array(
         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs/(?P<modelId>\d+)$#',
         'model' => 'Pluf\Jms\Views\PipelineView',
@@ -155,48 +89,16 @@ return array(
             'model' => 'Pluf\Jms\Job'
         )
     ),
-//     array( // Update item
-//         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'updateManyToOne',
-//         'http-method' => array(
-//             'POST',
-//             'PUT'
-//         ),
-//         'precond' => array(
-//             'CMS_Precondition::authorRequired'
-//         ),
-//         'params' => array(
-//             'parent' => 'Pluf\Jms\Pipeline',
-//             'parentKey' => 'pipeline_id',
-//             'model' => 'Pluf\Jms\Job'
-//         )
-//     ),
-//     array( // delete item
-//         'regex' => '#^/pipelines/(?P<parentId>\d+)/jobs/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'deleteManyToOne',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'CMS_Precondition::authorRequired'
-//         ),
-//         'params' => array(
-//             'parent' => 'Pluf\Jms\Pipeline',
-//             'parentKey' => 'pipeline_id',
-//             'model' => 'Pluf\Jms\Job'
-//         )
-//     ),
-    /****************************************************************
+    /**
+     * **************************************************************
      * Jobs
-     ****************************************************************/
+     * **************************************************************
+     */
     array(
         'regex' => '#^/jobs/schema$#',
         'model' => 'Pluf\Jms\Views\JobView',
         'method' => 'getSchema',
         'http-method' => 'GET',
-        'params' => array(
-            'model' => 'Pluf\Jms\Job'
-        ),
         'params' => array(
             'model' => 'Pluf\Jms\Job'
         )
@@ -216,24 +118,6 @@ return array(
             'model' => 'Pluf\Jms\Job'
         )
     ),
-//     array(
-//         'regex' => '#^/jobs$#',
-//         'model' => 'Pluf\Jms\Views\JobView',
-//         'method' => 'createPipeline',
-//         'http-method' => 'POST',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
-//     array(
-//         'regex' => '#^/jobs$#',
-//         'model' => 'Pluf\Jms\Views\JobView',
-//         'method' => 'deletePipeline',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
     /*
      * Snapshot itmes
      */
@@ -249,23 +133,279 @@ return array(
             'model' => 'Pluf\Jms\Job'
         )
     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'create',
-//         'http-method' => 'POST',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
-//     array(
-//         'regex' => '#^/pipelines/(?P<modelId>\d+)$#',
-//         'model' => 'Pluf\Jms\Views\PipelineView',
-//         'method' => 'method',
-//         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         )
-//     ),
 
+    /**
+     * **************************************************************
+     * Artifacts
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/artifacts/schema$#',
+        'model' => 'Pluf\Jms\Views\ArtifactView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Artifact'
+        )
+    ),
+    array(
+        'regex' => '#^/artifacts$#',
+        'model' => 'Pluf\Jms\Views\ArtifactView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Artifact'
+        )
+    ),
+    array(
+        'regex' => '#^/artifacts/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\ArtifactView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Artifact'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * Attachments
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/attachments/schema$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
+    array(
+        'regex' => '#^/attachments$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
+    array(
+        'regex' => '#^/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * attributes
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/attributes/schema$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
+    ),
+    array(
+        'regex' => '#^/attributes$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
+    ),
+    array(
+        'regex' => '#^/attributes/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\AttributeView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attribute'
+        )
+    ),
+
+
+    /**
+     * **************************************************************
+     * Labels
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/labels/schema$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/labels$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/labels/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\LabelView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+
+
+    /**
+     * **************************************************************
+     * job logs
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/job-logs/schema$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/job-logs$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+    array(
+        'regex' => '#^/job-logs/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\JobLogView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Label'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * job logger
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/job-loggers/schema$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+    array(
+        'regex' => '#^/job-loggers$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+    array(
+        'regex' => '#^/job-loggers/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\JobLoggerView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\JobLogger'
+        )
+    ),
+
+    /**
+     * **************************************************************
+     * Worker
+     * **************************************************************
+     */
+    array(
+        'regex' => '#^/workers/schema$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
+        )
+    ),
+    array(
+        'regex' => '#^/workers$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
+        )
+    ),
+    array(
+        'regex' => '#^/workers/(?P<modelId>\d+)$#',
+        'model' => 'Pluf\Jms\Views\WorkerView',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Worker'
+        )
+    )
 );
