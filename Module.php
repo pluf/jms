@@ -32,6 +32,21 @@ class Module
                 'Pluf\Jms\Label'
             )
         ),
+        'Pluf\Jms\Attachment' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        ),
+        'Pluf\Jms\Attribute' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        ),
+        'Pluf\Jms\JobLogger' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Job'
+            )
+        )
     );
 
     const urlsPath = __DIR__ . '/urls.php';

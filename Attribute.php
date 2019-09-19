@@ -41,7 +41,7 @@ class Attribute extends \Pluf_Model
                 'type' => 'Pluf_DB_Field_Varchar',
                 'is_null' => false,
                 'size' => 64,
-                'default' => 'application/octet-stream',
+                'default' => 'name',
                 'editable' => true
             ),
             'value' => array(
@@ -57,7 +57,7 @@ class Attribute extends \Pluf_Model
                 'model' => 'Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
-                'relate_name' => 'attachments',
+                'relate_name' => 'attributes',
                 'graphql_name' => 'job',
                 'editable' => true
             )

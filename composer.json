@@ -19,7 +19,8 @@
 	"require" : {
 		"pluf/core" : "5.11.x",
 		"pluf/monitor" : "5.11.x",
-		"php-amqplib/php-amqplib" : ">=2.6.1"
+		"php-amqplib/php-amqplib" : ">=2.6.1",
+		"symfony/yaml" : "4.3.x"
 	},
 	"require-dev" : {
 		"pluf/test" : "5.11.x",

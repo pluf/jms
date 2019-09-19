@@ -2,7 +2,8 @@
 <phpunit colors="true">
 	<testsuites>
 		<testsuite name="Jms">
-			<directory>Tests/</directory>
+			<!-- <directory>Tests/</directory> -->
+			<file>Tests/WjcParserTest.php</file>
 		</testsuite>
 	</testsuites>
 
