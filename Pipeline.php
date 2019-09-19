@@ -116,7 +116,7 @@ class Pipeline extends Pluf_Model
         foreach ($jobsToRun as $jbo) {
             // READ from configs
             try {
-                JobUtils::sendJobToQuey($job);
+                Service::pushToQueue($job);
                 $job->status = JobState::inProgress;
             } catch (Exception $ex) {
                 $job->status = JobState::error;

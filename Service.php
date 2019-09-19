@@ -18,6 +18,10 @@
  */
 namespace Pluf\Jms;
 
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+use Pluf_Exception;
+
 /**
  * General view of Jms
  *
@@ -26,7 +30,51 @@ namespace Pluf\Jms;
  */
 class Service
 {
+
     public const QUEUE_JOBS_NAME = "wp-jms-jobs-queue";
+
+    public const EXCHANGE_JOBS_NAME = "wp-jms-jobs";
+
     public const QUEUE_COMMANDS_NAME = "wp-jms-commands-queue";
+
+    public const EXCHANGE_COMMANDS_NAME = "wp-jms-commands";
+
     public const QUEUE_EVENTS_NAME = "wp-jms-events-queue";
+
+    public const EXCHANGE_EVENTS_NAME = "wp-jms-events";
+
+    /**
+     * Push the $job ito the Job Queu
+     *
+     * @param unknown $job
+     */
+    public static function pushToQueue($job): void
+    {
+        $rabbitmqHost = 'rabbitmq';
+        $rabbitmqPort = 5672;
+        $rabbitmqUser = 'gazmeh';
+        $rabbitmqPass = 'gazmeh';
+        $rabbitmqVhost = 'gazmeh';
+
+        $connection = new AMQPStreamConnection($rabbitmqHost, $rabbitmqPort, $rabbitmqUser, $rabbitmqPass, $rabbitmqVhost);
+        $channel = $connection->channel();
+
+        try {
+            $msg = new AMQPMessage(WjcParser::write($job));
+            $channel->basic_publish($msg, self::EXCHANGE_JOBS_NAME, self::getRouteK($job));
+        } catch (Exception $ex) {
+            throw new Pluf_Exception('Fail to send the job into the que', 50048, $ex);
+        }
+        $channel->close();
+        $connection->close();
+    }
+
+    public static function getRouteK(Job $job): string
+    {
+        $routeKey = $job->name;
+        if (isset($routeKey)) {
+            $routeKey = printf("jms.%d.%d", $job->pipeline_id, $job->id);
+        }
+        return $routeKey;
+    }
 }
