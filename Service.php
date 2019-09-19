@@ -73,7 +73,7 @@ class Service
     {
         $routeKey = $job->name;
         if (isset($routeKey)) {
-            $routeKey = printf("jms.%d.%d", $job->pipeline_id, $job->id);
+            $routeKey = sprintf("jms.%d.%d", $job->pipeline_id, $job->id);
         }
         return $routeKey;
     }
