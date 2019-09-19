@@ -18,8 +18,9 @@
  */
 namespace Pluf\Jms;
 
+use Pluf_ModelBinary;
 
-class JobLog extends ModelBinary
+class JobLog extends Pluf_ModelBinary
 {
 
     /**

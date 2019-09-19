@@ -18,12 +18,14 @@
  */
 namespace Pluf\Jms;
 
-class JobState {
-    public const STATUS_INIT = "init";
-    public const STATUS_WAIT = "ready";
-    public const STATUS_IN_PROGRESS = "in-progress";
-    public const STATUS_STOPPED = "stopped";
-    public const STATUS_ERROR = "error";
-    public const STATUS_COMPLETE = "done";
-    
+class JobState
+{
+    public const init = "new";
+    public const wait = "ready";
+    public const inProgress = "in-progress";
+    public const stopped = "stopped";
+    public const error = "error";
+    public const complete = "done";
 }
+
+

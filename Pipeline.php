@@ -57,14 +57,88 @@ class Pipeline extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Varchar',
                 'is_null' => false,
                 'size' => 64,
-                'default' => PipelineState::STATUS_NEW,
+                'default' => PipelineState::init,
                 'unique' => false,
                 'editable' => true
+            ),
+            // Relations
+            'labels' => array(
+                'type' => 'Pluf_DB_Field_Manytomany',
+                'model' => 'Pluf\Jms\Label',
+                'is_null' => true,
+                'editable' => false,
+                'name' => 'labels',
+                'graphql_name' => 'labels',
+                'relate_name' => 'pipelines'
             )
-            /*
-         * Relations
-         */
         );
         $this->_a['idx'] = array();
+    }
+
+    public function run()
+    {
+        /*
+         * Runs the pipeline if it is in ready state
+         */
+        if (! $this->canStart()) {
+            throw new \Pluf_Exception('Pipeline is not in stat to run');
+        }
+        $this->status = PipelienState::inProgress;
+        $this->save();
+        $this->runNextLevelOfJobs();
+    }
+
+    /**
+     * Run jobs if eny exist
+     */
+    public function runNextLevelOfJobs()
+    {
+        /*
+         * Runs ready jobs of the pipeline
+         */
+        $jobs = $this->get_jobs_list();
+
+        // Getting list of waited job
+        $jobsToRun = array();
+        $anyJobFail = false;
+        foreach ($jobs as $job) {
+            if ($job->status == JobState::wait) {
+                $jobsToRun[] = $job;
+            } else if($job->status == JobState::error){
+                $anyJobFail = true;
+            }
+        }
+        /*
+         * TODO: Create dependency graph and runs first level
+         */
+
+        // Run jobs
+        foreach ($jobsToRun as $jbo) {
+            // READ from configs
+            try {
+                JobUtils::sendJobToQuey($job);
+                $job->status = JobState::inProgress;
+            } catch (Exception $ex) {
+                $job->status = JobState::error;
+                continue;
+            }
+            $job->save();
+        }
+
+        // check any job fail
+        if(empty($jobsToRun)){
+            $this->status = $anyJobFail ? PipelineState::error : PipelineState::complete;
+            $this->save();
+        }
+    }
+
+    /**
+     * Checks if it is possible to run the pipeline
+     *
+     * @return boolean
+     */
+    public function canStart(): boolean
+    {
+        return $this->status === PipelineState::wait;
     }
 }

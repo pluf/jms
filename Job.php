@@ -18,9 +18,9 @@
  */
 namespace Pluf\Jms;
 
-use Pluf_Model;
+use Pluf_ModelBinary;
 
-class Job extends Pluf_Model
+class Job extends Pluf_ModelBinary
 {
 
     /**
@@ -56,7 +56,7 @@ class Job extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Varchar',
                 'is_null' => false,
                 'size' => 64,
-                'default' => 'init',
+                'default' => JobState::init,
                 'editable' => true
             ),
             'image' => array(
