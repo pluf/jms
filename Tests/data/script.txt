@@ -1,0 +1,3 @@
+echo 'hi';
+ls
+touch 'hi.txt'
