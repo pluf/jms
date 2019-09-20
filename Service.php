@@ -72,7 +72,7 @@ class Service
     public static function getRouteK(Job $job): string
     {
         $routeKey = $job->name;
-        if (isset($routeKey)) {
+        if (!isset($routeKey)) {
             $routeKey = sprintf("jms.%d.%d", $job->pipeline_id, $job->id);
         }
         return $routeKey;
