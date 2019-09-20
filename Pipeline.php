@@ -97,6 +97,7 @@ class Pipeline extends Pluf_Model
          * Runs ready jobs of the pipeline
          */
         $jobs = $this->get_jobs_list();
+        $anyJobFail = false;
 
         // Getting list of waited job
         $jobsToRun = array();
@@ -122,13 +123,13 @@ class Pipeline extends Pluf_Model
                 $job->status = JobState::error;
                 continue;
             }
-            $job->save();
+            $job->update();
         }
 
         // check any job fail
         if(empty($jobsToRun)){
             $this->status = $anyJobFail ? PipelineState::error : PipelineState::complete;
-            $this->save();
+            $this->update();
         }
     }
 
