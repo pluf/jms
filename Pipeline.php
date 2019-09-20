@@ -83,8 +83,8 @@ class Pipeline extends Pluf_Model
         if (! $this->canStart()) {
             throw new \Pluf_Exception('Pipeline is not in stat to run');
         }
-        $this->status = PipelienState::inProgress;
-        $this->save();
+        $this->status = PipelineState::inProgress;
+        $this->update();
         $this->runNextLevelOfJobs();
     }
 
@@ -97,6 +97,7 @@ class Pipeline extends Pluf_Model
          * Runs ready jobs of the pipeline
          */
         $jobs = $this->get_jobs_list();
+        $anyJobFail = false;
 
         // Getting list of waited job
         $jobsToRun = array();
@@ -122,13 +123,13 @@ class Pipeline extends Pluf_Model
                 $job->status = JobState::error;
                 continue;
             }
-            $job->save();
+            $job->update();
         }
 
         // check any job fail
         if(empty($jobsToRun)){
             $this->status = $anyJobFail ? PipelineState::error : PipelineState::complete;
-            $this->save();
+            $this->update();
         }
     }
 
@@ -137,7 +138,7 @@ class Pipeline extends Pluf_Model
      *
      * @return boolean
      */
-    public function canStart(): boolean
+    public function canStart(): bool
     {
         return $this->status === PipelineState::wait;
     }
