@@ -46,6 +46,11 @@ class Module
             'relate_to' => array(
                 'Pluf\Jms\Job'
             )
+        ),
+        'Pluf\Jms\Job' => array(
+            'relate_to' => array(
+                'Pluf\Jms\Pipeline'
+            )
         )
     );
 
