@@ -211,6 +211,18 @@ return array(
             'model' => 'Pluf\Jms\Attachment'
         )
     ),
+    array(
+        'regex' => '#^/attachments/(?P<modelId>\d+)/content$#',
+        'model' => 'Pluf\Jms\Views\AttachmentView',
+        'method' => 'downloadObjectBinary',
+        'http-method' => 'GET',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Pluf\Jms\Attachment'
+        )
+    ),
 
     /**
      * **************************************************************
