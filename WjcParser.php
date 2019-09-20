@@ -22,6 +22,7 @@ class WjcParser
         foreach ($attachments as $attachment){
             $data['attachments'][] = array(
                 'id' => $attachment->id,
+                'name' => $attachment->file_name,
                 'extract' => $attachment->extract,
                 'url' => $resourceHost.'/api/v2/jms/attachments/'.$attachment->id.'/content'
             );
@@ -31,16 +32,18 @@ class WjcParser
         $atributes = $job->get_attributes_list();
         $data['variables'] = array();
         foreach ($atributes as $atr){
-            $data['variables'][] = array(
-                $atr->name => $atr->value,
-            );
+            $data['variables'][$atr->name] = $atr->value;
         }
 
         // scrits
         $data['script'] = array();
         $fn = fopen($job->getAbsloutPath(),"r");
         while(! feof($fn))  {
-            $data['script'][] = fgets($fn);
+            $val  = fgets($fn);
+            if(!$val){
+                continue;
+            }
+            $data['script'][] = trim($val);
         }
 
 

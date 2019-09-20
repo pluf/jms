@@ -114,7 +114,7 @@ class Pipeline extends Pluf_Model
          */
 
         // Run jobs
-        foreach ($jobsToRun as $jbo) {
+        foreach ($jobsToRun as $job) {
             // READ from configs
             try {
                 Service::pushToQueue($job);
