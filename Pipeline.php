@@ -137,7 +137,7 @@ class Pipeline extends Pluf_Model
      *
      * @return boolean
      */
-    public function canStart(): boolean
+    public function canStart(): bool
     {
         return $this->status === PipelineState::wait;
     }
