@@ -1,4 +1,5 @@
 <?php
+namespace Pluf\Jms;
 
 /**
  * @ORM\Entity
