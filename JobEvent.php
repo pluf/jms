@@ -141,9 +141,9 @@ class JobEvent
     {
         $event = new JobEvent();
         $event->id = $arrayData['id'];
-        $event->job = $arrayData['job'];
+        $event->job = $arrayData['job_id'];
         $event->name = $arrayData['name'];
-        $event->worker = $arrayData['worker'];
+        $event->worker = $arrayData['worker_id'];
         $event->time_stampe = $arrayData['time_stampe'];
         return $event;
     }
