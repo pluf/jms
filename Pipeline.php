@@ -102,11 +102,21 @@ class Pipeline extends Pluf_Model
         // Getting list of waited job
         $jobsToRun = array();
         $anyJobFail = false;
+        $anyJobRun = false;
         foreach ($jobs as $job) {
-            if ($job->status == JobState::wait) {
-                $jobsToRun[] = $job;
-            } else if($job->status == JobState::error){
-                $anyJobFail = true;
+            switch($job->status) {
+                case JobState::wait:
+                    $jobsToRun[] = $job;
+                case JobState::init:
+                case JobState::inProgress:
+                case JobState::stopped:
+                    $anyJobRun = true;
+                    break;
+                case JobState::error:
+                    $anyJobFail = true;
+                    break;
+                case JobState::complete:
+                    break;
             }
         }
         /*
@@ -127,7 +137,7 @@ class Pipeline extends Pluf_Model
         }
 
         // check any job fail
-        if(empty($jobsToRun)){
+        if(!$anyJobRun){
             $this->status = $anyJobFail ? PipelineState::error : PipelineState::complete;
             $this->update();
         }
