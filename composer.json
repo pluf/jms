@@ -15,7 +15,7 @@
 			"role" : "developer"
 		}
 	],
-	"minimum-stability" : "stable",
+	"minimum-stability" : "dev",
 	"require" : {
 		"pluf/core" : "5.12.x",
 		"pluf/monitor" : "5.12.x",
@@ -36,7 +36,7 @@
 			"/Tests/"
 		]
 	},
-	"homepage" : "https://github.com/pluf/cache",
+	"homepage" : "https://pluf.ir",
 	"support" : {
 		"email" : "info@pluf.ir",
 		"issues" : "https://github.com/pluf/cms/issues",
