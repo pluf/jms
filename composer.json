@@ -17,16 +17,16 @@
 	],
 	"minimum-stability" : "dev",
 	"require" : {
-		"pluf/core" : "5.12.x",
-		"pluf/monitor" : "5.12.x",
+		"pluf/core" : "5.13.x",
+		"pluf/monitor" : "5.13.x",
 		"php-amqplib/php-amqplib" : ">=2.6.1",
 		"symfony/yaml" : "4.3.x"
 	},
 	"require-dev" : {
-		"pluf/test" : "5.12.x",
-		"pluf/cms" : "5.12.x",
-		"pluf/tenant" : "5.12.x",
-		"pluf/user" : "5.12.x"
+		"pluf/test" : "5.13.x",
+		"pluf/cms" : "5.13.x",
+		"pluf/tenant" : "5.13.x",
+		"pluf/user" : "5.13.x"
 	},
 	"autoload" : {
 		"psr-4" : {
