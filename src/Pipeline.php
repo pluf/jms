@@ -64,7 +64,7 @@ class Pipeline extends Pluf_Model
             // Relations
             'labels' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'Pluf\Jms\Label',
+                'model' => '\Pluf\Jms\Label',
                 'is_null' => true,
                 'editable' => false,
                 'name' => 'labels',

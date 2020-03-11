@@ -75,7 +75,7 @@ class Job extends Pluf_ModelBinary
             // relations
             'pipeline_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf\Jms\Pipeline',
+                'model' => '\Pluf\Jms\Pipeline',
                 'is_null' => false,
                 'name' => 'pipeline',
                 'graphql_name' => 'pipeline',

@@ -18,20 +18,11 @@
  */
 $cfg = array();
 
-// Default database configuration. The database defined here will be
-// directly accessible from Pluf::db() of course it is still possible
-// to open any other number of database connections through Pluf_DB
 $cfg['db_login'] = 'root';
 $cfg['db_password'] = '';
 $cfg['db_server'] = 'localhost';
 $cfg['db_database'] = 'test';
-
-// Must be shared by all the installed_apps and the core framework.
-// That way you can have several installations of the core framework.
 $cfg['db_table_prefix'] = 'tenant_unit_tests_';
-
-// Starting version 4.1 of MySQL the utf-8 support is "correct".
-// The reason of the db_version for MySQL is only for that.
 $cfg['db_version'] = '5.5.33';
 $cfg['db_engine'] = 'MySQL';
 

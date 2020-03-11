@@ -18,7 +18,7 @@
  */
 namespace Pluf\Jms;
 
-class Module
+class Module extends \Pluf\Module
 {
 
     const moduleJsonPath = __DIR__ . '/module.json';
@@ -27,32 +27,37 @@ class Module
      * All data model relations
      */
     const relations = array(
-        'Pluf\Jms\Pipeline' => array(
+        '\Pluf\Jms\Pipeline' => array(
             'relate_to_many' => array(
-                'Pluf\Jms\Label'
+                '\Pluf\Jms\Label'
             )
         ),
-        'Pluf\Jms\Attachment' => array(
+        '\Pluf\Jms\Attachment' => array(
             'relate_to' => array(
-                'Pluf\Jms\Job'
+                '\Pluf\Jms\Job'
             )
         ),
-        'Pluf\Jms\Attribute' => array(
+        '\Pluf\Jms\Attribute' => array(
             'relate_to' => array(
-                'Pluf\Jms\Job'
+                '\Pluf\Jms\Job'
             )
         ),
-        'Pluf\Jms\JobLogger' => array(
+        '\Pluf\Jms\JobLogger' => array(
             'relate_to' => array(
-                'Pluf\Jms\Job'
+                '\Pluf\Jms\Job'
             )
         ),
-        'Pluf\Jms\Job' => array(
+        '\Pluf\Jms\Job' => array(
             'relate_to' => array(
-                'Pluf\Jms\Pipeline'
+                '\Pluf\Jms\Pipeline'
             )
         )
     );
 
     const urlsPath = __DIR__ . '/urls.php';
+
+    public function init(\Pluf $bootstrap): void
+    {
+        // TODO: maso, 2020: load module
+    }
 }

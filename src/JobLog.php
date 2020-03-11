@@ -43,7 +43,7 @@ class JobLog extends Pluf_ModelBinary
             // relations
             'job_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf\Jms\Job',
+                'model' => '\Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
                 'relate_name' => 'attachments',
