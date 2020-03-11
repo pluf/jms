@@ -18,7 +18,9 @@
  */
 namespace Pluf\Jms;
 
-class Worker extends \Pluf_Model
+use Pluf_Model;
+
+class Worker extends Pluf_Model
 {
 
     /**

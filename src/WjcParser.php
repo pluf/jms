@@ -19,33 +19,32 @@ class WjcParser
         // attahcments
         $attachments = $job->get_attachments_list();
         $data['attachments'] = array();
-        foreach ($attachments as $attachment){
+        foreach ($attachments as $attachment) {
             $data['attachments'][] = array(
                 'id' => $attachment->id,
                 'name' => $attachment->file_name,
                 'extract' => $attachment->extract,
-                'url' => $resourceHost.'/api/v2/jms/attachments/'.$attachment->id.'/content'
+                'url' => $resourceHost . '/api/v2/jms/attachments/' . $attachment->id . '/content'
             );
         }
 
         // attributs
         $atributes = $job->get_attributes_list();
         $data['variables'] = array();
-        foreach ($atributes as $atr){
+        foreach ($atributes as $atr) {
             $data['variables'][$atr->name] = $atr->value;
         }
 
         // scrits
         $data['script'] = array();
-        $fn = fopen($job->getAbsloutPath(),"r");
-        while(! feof($fn))  {
-            $val  = fgets($fn);
-            if(!$val){
+        $fn = fopen($job->getAbsloutPath(), "r");
+        while (! feof($fn)) {
+            $val = fgets($fn);
+            if (! $val) {
                 continue;
             }
             $data['script'][] = trim($val);
         }
-
 
         $code = Yaml::dump($data, 2);
         return $code;

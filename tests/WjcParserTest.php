@@ -18,9 +18,7 @@
  */
 namespace Pluf\Jms\Tests;
 
-require_once 'Pluf.php';
-
-use PHPUnit\Framework\TestCase;
+use Pluf\Test\TestCase;
 use Pluf\Jms\Pipeline;
 use Pluf\Jms\Job;
 use Pluf\Jms\WjcParser;
@@ -36,8 +34,6 @@ use Pluf_Tenant;
 use User_Account;
 use User_Credential;
 use User_Role;
-use Test_Client;
-use Test_Assert;
 
 /**
  *
@@ -53,27 +49,10 @@ class WjcParserRestTest extends TestCase
      */
     public static function installApps()
     {
-        $cfg = include __DIR__ . '/conf/config.php';
-        $cfg['multitenant'] = false;
-        Pluf::start($cfg);
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        Pluf::start(__DIR__ . '/conf/config.php');
+        $m = new Pluf_Migration();
         $m->install();
-
-        // Test tenant
-        $tenant = new Pluf_Tenant();
-        $tenant->domain = 'localhost';
-        $tenant->subdomain = 'www';
-        $tenant->validate = true;
-        if (true !== $tenant->create()) {
-            throw new Pluf_Exception('Faile to create new tenant');
-        }
-
-        $m->init($tenant);
-
-        if (! isset($GLOBALS['_PX_request'])) {
-            $GLOBALS['_PX_request'] = new Pluf_HTTP_Request('/');
-        }
-        $GLOBALS['_PX_request']->tenant = $tenant;
+        $m->init();
 
         // Test user
         $user = new User_Account();
@@ -152,6 +131,6 @@ class WjcParserRestTest extends TestCase
 
         $str = WjcParser::write($job);
         echo $str;
-        Test_Assert::assertNotNull($str);
+        $this->assertNotNull($str);
     }
 }

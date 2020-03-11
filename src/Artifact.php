@@ -24,9 +24,9 @@ class Artifact extends Pluf_ModelBinary
 {
 
     /**
-     * Initialize the data model
      *
-     * @see Pluf_Model::init()
+     * {@inheritdoc}
+     * @see Pluf_ModelBinary::init()
      */
     function init()
     {

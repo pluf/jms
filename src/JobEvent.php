@@ -2,6 +2,7 @@
 namespace Pluf\Jms;
 
 /**
+ *
  * @ORM\Entity
  * @ORM\Table(name="jms_job_event")
  */

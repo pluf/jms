@@ -18,12 +18,14 @@
  */
 namespace Pluf\Jms;
 
-class Attribute extends \Pluf_Model
+use Pluf_Model;
+
+class Attribute extends Pluf_Model
 {
 
     /**
-     * Initialize the data model
      *
+     * {@inheritdoc}
      * @see Pluf_Model::init()
      */
     function init()

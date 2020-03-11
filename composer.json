@@ -18,16 +18,13 @@
 	],
 	"minimum-stability" : "dev",
 	"require" : {
-		"pluf/core" : "6.x",
 		"pluf/monitor" : "6.x",
+		"pluf/user" : "6.x",
 		"php-amqplib/php-amqplib" : ">=2.6.1",
 		"symfony/yaml" : "4.3.x"
 	},
 	"require-dev" : {
-		"pluf/test" : "6.x",
-		"pluf/cms" : "6.x",
-		"pluf/tenant" : "6.x",
-		"pluf/user" : "6.x"
+		"pluf/test" : "6.x"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -52,5 +49,49 @@
 		"php",
 		"pluf-module",
 		"job"
+	],
+	"repositories" : [{
+			"type" : "path",
+			"url" : "../core",
+			"name" : "pluf/core",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../test",
+			"name" : "pluf/test",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../http2",
+			"name" : "pluf/http2",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../cms",
+			"name" : "pluf/cms",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../monitor",
+			"name" : "pluf/monitor",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../user",
+			"name" : "pluf/user",
+			"options" : {
+				"symlink" : true
+			}
+		}
 	]
 }

@@ -18,9 +18,7 @@
  */
 namespace Pluf\Jms\Tests;
 
-require_once 'Pluf.php';
-
-use PHPUnit\Framework\TestCase;
+use Pluf\Test\TestCase;
 use Pluf;
 use Pluf_Exception;
 use Pluf_HTTP_Request;
@@ -29,8 +27,7 @@ use Pluf_Tenant;
 use User_Account;
 use User_Credential;
 use User_Role;
-use Test_Client;
-use Test_Assert;
+use Pluf\Test\Client;
 
 /**
  *
@@ -106,26 +103,13 @@ class AttributeRestTest extends TestCase
     public function gettingModelSchema()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Jms',
-                'regex' => '#^/jms#',
-                'base' => '',
-                'sub' => include Pluf\Jms\Module::urlsPath
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
+        $client = new Client();
         $client->clean();
 
         // login
         $response = $client->get('/jms/attributes/schema');
-        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
-        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        $this->assertResponseNotNull($response, 'Find result is empty');
+        $this->assertResponseStatusCode($response, 200, 'Find status code is not 200');
     }
 
     /**
@@ -135,20 +119,7 @@ class AttributeRestTest extends TestCase
     public function gettingListOfAllArtifacts()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Jms',
-                'regex' => '#^/jms#',
-                'base' => '',
-                'sub' => include Pluf\Jms\Module::urlsPath
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
+        $client = new Client();
         $client->clean();
 
         // 1- Login
@@ -156,12 +127,12 @@ class AttributeRestTest extends TestCase
             'login' => 'test',
             'password' => 'test'
         ));
-        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
+        $this->assertResponseStatusCode($response, 200, 'Fail to login');
 
         $response = $client->get('/jms/attributes');
-        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
-        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
-        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+        $this->assertResponseNotNull($response, 'Find result is empty');
+        $this->assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        $this->assertResponsePaginateList($response, 'Find result is not JSON paginated list');
     }
 
     /**
@@ -171,20 +142,7 @@ class AttributeRestTest extends TestCase
     public function gettingNonEmptyArtifacts()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Jms',
-                'regex' => '#^/jms#',
-                'base' => '',
-                'sub' => include Pluf\Jms\Module::urlsPath
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
+        $client = new Client();
         $client->clean();
 
         $pipeline = new Pluf\Jms\Pipeline();
@@ -206,11 +164,11 @@ class AttributeRestTest extends TestCase
             'login' => 'test',
             'password' => 'test'
         ));
-        Test_Assert::assertResponseStatusCode($response, 200, 'Fail to login');
+        $this->assertResponseStatusCode($response, 200, 'Fail to login');
 
         $response = $client->get('/jms/attributes');
-        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
-        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
-        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+        $this->assertResponseNotNull($response, 'Find result is empty');
+        $this->assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        $this->assertResponsePaginateList($response, 'Find result is not JSON paginated list');
     }
 }
