@@ -54,8 +54,6 @@ class Module extends \Pluf\Module
         )
     );
 
-    const urlsPath = __DIR__ . '/urls.php';
-
     public function init(\Pluf $bootstrap): void
     {
         // TODO: maso, 2020: load module
