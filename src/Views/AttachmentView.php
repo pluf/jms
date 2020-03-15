@@ -20,5 +20,4 @@ namespace Pluf\Jms\Views;
 
 class AttachmentView extends \Pluf_Views
 {
-
 }

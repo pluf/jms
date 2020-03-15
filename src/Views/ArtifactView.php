@@ -20,5 +20,4 @@ namespace Pluf\Jms\Views;
 
 class ArtifactView extends \Pluf_Views
 {
-
 }

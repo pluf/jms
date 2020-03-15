@@ -18,12 +18,14 @@
  */
 namespace Pluf\Jms;
 
-class Attribute extends \Pluf_Model
+use Pluf_Model;
+
+class Attribute extends Pluf_Model
 {
 
     /**
-     * Initialize the data model
      *
+     * {@inheritdoc}
      * @see Pluf_Model::init()
      */
     function init()
@@ -54,7 +56,7 @@ class Attribute extends \Pluf_Model
             // relations
             'job_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf\Jms\Job',
+                'model' => '\Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
                 'relate_name' => 'attributes',

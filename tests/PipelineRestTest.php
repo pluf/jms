@@ -18,9 +18,7 @@
  */
 namespace Pluf\SuperJms\Tests;
 
-require_once 'Pluf.php';
-
-use PHPUnit\Framework\TestCase;
+use Pluf\Test\TestCase;
 use Pluf;
 use Pluf_Exception;
 use Pluf_HTTP_Request;
@@ -29,8 +27,7 @@ use Pluf_Tenant;
 use User_Account;
 use User_Credential;
 use User_Role;
-use Test_Client;
-use Test_Assert;
+use Pluf\Test\Client;
 
 /**
  *
@@ -106,20 +103,7 @@ class PipelineRestTest extends TestCase
     public function gettingSnapshotSchema()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Jms',
-                'regex' => '#^/jms#',
-                'base' => '',
-                'sub' => include Pluf\Jms\Module::urlsPath
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
+        $client = new Client();
         $client->clean();
 
         // login
@@ -135,20 +119,7 @@ class PipelineRestTest extends TestCase
     public function gettingListOfPipelines()
     {
         // we have to init client for eny test
-        $client = new Test_Client(array(
-            array(
-                'app' => 'Jms',
-                'regex' => '#^/jms#',
-                'base' => '',
-                'sub' => include Pluf\Jms\Module::urlsPath
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls-v2.php'
-            )
-        ));
+        $client = new Client();
         $client->clean();
 
         // login

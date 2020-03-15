@@ -64,7 +64,7 @@ class Pipeline extends Pluf_Model
             // Relations
             'labels' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'Pluf\Jms\Label',
+                'model' => '\Pluf\Jms\Label',
                 'is_null' => true,
                 'editable' => false,
                 'name' => 'labels',
@@ -104,7 +104,7 @@ class Pipeline extends Pluf_Model
         $anyJobFail = false;
         $anyJobRun = false;
         foreach ($jobs as $job) {
-            switch($job->status) {
+            switch ($job->status) {
                 case JobState::wait:
                     $jobsToRun[] = $job;
                 case JobState::init:
@@ -129,7 +129,7 @@ class Pipeline extends Pluf_Model
             try {
                 Service::pushToQueue($job);
                 $job->status = JobState::inProgress;
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $job->status = JobState::error;
                 continue;
             }
@@ -137,7 +137,7 @@ class Pipeline extends Pluf_Model
         }
 
         // check any job fail
-        if(!$anyJobRun){
+        if (! $anyJobRun) {
             $this->status = $anyJobFail ? PipelineState::error : PipelineState::complete;
             $this->update();
         }

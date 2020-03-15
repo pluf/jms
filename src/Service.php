@@ -20,13 +20,13 @@ namespace Pluf\Jms;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Pluf_Exception;
+use Pluf\Exception;
 
 /**
  * General view of Jms
  *
  * @author maso
- *
+ *        
  */
 class Service
 {
@@ -46,9 +46,9 @@ class Service
     /**
      * Push the $job ito the Job Queu
      *
-     * @param unknown $job
+     * @param Job $job
      */
-    public static function pushToQueue($job): void
+    public static function pushToQueue(Job $job): void
     {
         $rabbitmqHost = 'rabbitmq';
         $rabbitmqPort = 5672;
@@ -62,8 +62,8 @@ class Service
         try {
             $msg = new AMQPMessage(WjcParser::write($job));
             $channel->basic_publish($msg, self::EXCHANGE_JOBS_NAME, self::getRouteK($job));
-        } catch (Exception $ex) {
-            throw new Pluf_Exception('Fail to send the job into the que', 50048, $ex);
+        } catch (\Exception $ex) {
+            throw new Exception('Fail to send the job into the que', 50048, $ex);
         }
         $channel->close();
         $connection->close();
@@ -72,7 +72,7 @@ class Service
     public static function getRouteK(Job $job): string
     {
         $routeKey = $job->name;
-        if (!isset($routeKey)) {
+        if (! isset($routeKey)) {
             $routeKey = sprintf("jms.%d.%d", $job->pipeline_id, $job->id);
         }
         return $routeKey;
