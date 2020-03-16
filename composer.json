@@ -1,6 +1,6 @@
 {
 	"name" : "pluf/jms",
-	"version" : "6.0.5",
+	"version" : "6.0.6",
 	"description" : "Job Management System",
 	"type" : "library",
 	"license" : "MIT",
