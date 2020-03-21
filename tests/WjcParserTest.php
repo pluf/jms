@@ -28,18 +28,11 @@ use Pluf\Jms\JobLogger;
 
 use Pluf;
 use Pluf_Exception;
-use Pluf_HTTP_Request;
 use Pluf_Migration;
-use Pluf_Tenant;
 use User_Account;
 use User_Credential;
 use User_Role;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class WjcParserRestTest extends TestCase
 {
 

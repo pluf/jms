@@ -29,11 +29,6 @@ use User_Credential;
 use User_Role;
 use Pluf\Test\Client;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ArtifactRestTest extends TestCase
 {
 

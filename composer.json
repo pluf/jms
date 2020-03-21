@@ -19,11 +19,11 @@
 	"minimum-stability" : "dev",
 	"require" : {
 		"pluf/monitor" : "6.x",
-		"pluf/user" : "6.x",
 		"php-amqplib/php-amqplib" : ">=2.6.1",
 		"symfony/yaml" : "4.3.x"
 	},
 	"require-dev" : {
+		"pluf/user" : "6.x",
 		"pluf/test" : "6.x"
 	},
 	"autoload" : {
