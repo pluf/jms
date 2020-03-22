@@ -81,7 +81,7 @@ class Pipeline extends Pluf_Model
          * Runs the pipeline if it is in ready state
          */
         if (! $this->canStart()) {
-            throw new \Pluf_Exception('Pipeline is not in stat to run');
+            throw new \Pluf\Exception('Pipeline is not in stat to run');
         }
         $this->status = PipelineState::inProgress;
         $this->update();
