@@ -27,19 +27,12 @@ use Pluf\Jms\Attribute;
 use Pluf\Jms\JobLogger;
 
 use Pluf;
-use Pluf_Exception;
-use Pluf_HTTP_Request;
+use \Pluf\Exception;
 use Pluf_Migration;
-use Pluf_Tenant;
 use User_Account;
 use User_Credential;
 use User_Role;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class WjcParserRestTest extends TestCase
 {
 
@@ -59,7 +52,7 @@ class WjcParserRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Pluf_Exception();
+            throw new \Pluf\Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -68,7 +61,7 @@ class WjcParserRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Pluf_Exception();
+            throw new \Pluf\Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');

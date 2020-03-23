@@ -20,7 +20,6 @@ namespace Pluf\Jms\Tests;
 
 use Pluf\Test\TestCase;
 use Pluf;
-use Pluf_Exception;
 use Pluf_HTTP_Request;
 use Pluf_Migration;
 use Pluf_Tenant;
@@ -29,11 +28,6 @@ use User_Credential;
 use User_Role;
 use Pluf\Test\Client;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class AttributeRestTest extends TestCase
 {
 
@@ -55,7 +49,7 @@ class AttributeRestTest extends TestCase
         $tenant->subdomain = 'www';
         $tenant->validate = true;
         if (true !== $tenant->create()) {
-            throw new Pluf_Exception('Faile to create new tenant');
+            throw new  \Pluf\Exception('Faile to create new tenant');
         }
 
         $m->init($tenant);
@@ -70,7 +64,7 @@ class AttributeRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -79,7 +73,7 @@ class AttributeRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');

@@ -20,7 +20,6 @@ namespace Pluf\Jms\Tests;
 
 use Pluf\Test\TestCase;
 use Pluf;
-use Pluf_Exception;
 use Pluf_HTTP_Request;
 use Pluf_Migration;
 use Pluf_Tenant;
@@ -55,7 +54,7 @@ class AttachmentRestTest extends TestCase
         $tenant->subdomain = 'www';
         $tenant->validate = true;
         if (true !== $tenant->create()) {
-            throw new Pluf_Exception('Faile to create new tenant');
+            throw new  \Pluf\Exception('Faile to create new tenant');
         }
 
         $m->init($tenant);
@@ -70,7 +69,7 @@ class AttachmentRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -79,7 +78,7 @@ class AttachmentRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');

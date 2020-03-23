@@ -1,6 +1,6 @@
 {
 	"name" : "pluf/jms",
-	"version" : "6.0.6",
+	"version" : "6.0.7",
 	"description" : "Job Management System",
 	"type" : "library",
 	"license" : "MIT",
@@ -19,11 +19,11 @@
 	"minimum-stability" : "dev",
 	"require" : {
 		"pluf/monitor" : "6.x",
-		"pluf/user" : "6.x",
 		"php-amqplib/php-amqplib" : ">=2.6.1",
 		"symfony/yaml" : "4.3.x"
 	},
 	"require-dev" : {
+		"pluf/user" : "6.x",
 		"pluf/test" : "6.x"
 	},
 	"autoload" : {
@@ -50,7 +50,7 @@
 		"pluf-module",
 		"job"
 	],
-	"repositories" : [{
+	"repositories~" : [{
 			"type" : "path",
 			"url" : "../core",
 			"name" : "pluf/core",
