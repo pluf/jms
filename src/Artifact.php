@@ -34,7 +34,7 @@ class Artifact extends Pluf_ModelBinary
         $this->_a['table'] = 'jms_artifacts';
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'path' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'default' => '/',
                 'size' => 1024,
@@ -42,7 +42,7 @@ class Artifact extends Pluf_ModelBinary
             ),
             // relations
             'job_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => '\Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',

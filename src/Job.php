@@ -35,38 +35,38 @@ class Job extends Pluf_ModelBinary
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             // Fields
             'name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 64,
                 'editable' => true
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 2048,
                 'editable' => true
             ),
             'priority' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'is_null' => false,
                 'default' => 0,
                 'editable' => true
             ),
             'status' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 64,
                 'default' => JobState::init,
                 'editable' => true
             ),
             'image' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 256,
                 'editable' => true
             ),
             'when' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 64,
                 'default' => 'on_success',
@@ -74,7 +74,7 @@ class Job extends Pluf_ModelBinary
             ),
             // relations
             'pipeline_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => '\Pluf\Jms\Pipeline',
                 'is_null' => false,
                 'name' => 'pipeline',
