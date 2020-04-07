@@ -34,20 +34,20 @@ class Attribute extends Pluf_Model
         $this->_a['cols'] = array(
             // Identifier
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false
             ),
             // Fields
             'name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 64,
                 'default' => 'name',
                 'editable' => true
             ),
             'value' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 2048,
                 'default' => 'application/octet-stream',
@@ -55,7 +55,7 @@ class Attribute extends Pluf_Model
             ),
             // relations
             'job_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => '\Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',

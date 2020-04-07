@@ -34,13 +34,13 @@ class Label extends Pluf_Model
         $this->_a['cols'] = array(
             // Identifier
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false
             ),
             // Fields
             'name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 1024,
                 'default' => 'name',

@@ -34,27 +34,27 @@ class Pipeline extends Pluf_Model
         $this->_a['cols'] = array(
             // Identifier
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false
             ),
             // Fields
             'title' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 256,
                 'unique' => false,
                 'editable' => true
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 2048,
                 'unique' => false,
                 'editable' => true
             ),
             'status' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 64,
                 'default' => PipelineState::init,
@@ -63,7 +63,7 @@ class Pipeline extends Pluf_Model
             ),
             // Relations
             'labels' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => '\Pluf\Jms\Label',
                 'is_null' => true,
                 'editable' => false,

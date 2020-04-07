@@ -35,14 +35,14 @@ class JobLog extends Pluf_ModelBinary
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             // Identifier
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false
             ),
             // Fields
             // relations
             'job_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => '\Pluf\Jms\Job',
                 'is_null' => false,
                 'name' => 'job',
